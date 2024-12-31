@@ -12,8 +12,8 @@ class Creature
     card_cost = @cost
 
     loop do
-      cur_mana       = card_cost.pop
-      cur_mana_index = available_mana.find_index cur_mana
+      cur_mana = card_cost.pop
+      cur_mana_index = available_mana.find_index { |mana| mana.matches cur_mana }
 
       return false unless cur_mana_index
 
