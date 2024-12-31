@@ -13,7 +13,7 @@ class Creature
 
     loop do
       cur_mana = card_cost.pop
-      cur_mana_index = available_mana.find_index { |mana| mana.matches cur_mana }
+      cur_mana_index = available_mana.find_index { |mana| mana.matches cur_mana.color }
 
       return false unless cur_mana_index
 

@@ -1,15 +1,18 @@
 require 'spec_helper'
 require 'creature'
+require 'card_cost'
 require 'land'
 
 RSpec.describe Creature do
+  let(:blue) { CardCost.new(:blue) }
+  let(:colorless) { CardCost.new(:colorless) }
+
   describe '#cost' do
     context 'when creature costs 2 blue mana' do
-      it 'returns 2 blue mana' do
-        creature = Creature.new.set_cost(%i[blue blue])
+      subject(:creature) { Creature.new.set_cost([blue, blue]) }
 
-        expect(creature.cost).to eq %i[blue blue]
-      end
+      it { expect(creature.cost).to eq [blue, blue] }
+      it { expect(creature.cost).to be_an Array }
     end
   end
 
@@ -26,7 +29,7 @@ RSpec.describe Creature do
     let(:single_island_single_mountain) { [island, mountain] }
 
     context 'when creature costs 2 blue mana' do
-      let(:creature) { Creature.new.set_cost(%i[blue blue]) }
+      let(:creature) { Creature.new.set_cost([blue, blue]) }
 
       describe 'valid terrain combinations' do
         it { expect(creature.castable?(double_island)).to be true }
@@ -42,7 +45,7 @@ RSpec.describe Creature do
     end
 
     context 'when creature costs 2 colorless mana' do
-      let(:creature) { Creature.new.set_cost(%i[colorless colorless]) }
+      let(:creature) { Creature.new.set_cost([colorless, colorless]) }
 
       describe 'valid terrain combinations' do
         it { expect(creature.castable?(double_island)).to be true }
