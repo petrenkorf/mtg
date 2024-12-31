@@ -27,6 +27,7 @@ RSpec.describe Creature do
     let(:single_island) { [island] }
     let(:single_mountain) { [mountain] }
     let(:single_island_single_mountain) { [island, mountain] }
+    let(:double_dual) { [dual_land, dual_land] }
 
     context 'when creature costs 2 blue mana' do
       let(:creature) { Creature.new.set_cost([blue, blue]) }
@@ -49,6 +50,8 @@ RSpec.describe Creature do
 
       describe 'valid terrain combinations' do
         it { expect(creature.castable?(double_island)).to be true }
+        it { expect(creature.castable?(double_mountain)).to be true }
+        it { expect(creature.castable?(double_dual)).to be true }
         it { expect(creature.castable?(single_island_single_mountain)).to be true }
       end
 
