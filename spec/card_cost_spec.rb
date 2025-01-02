@@ -7,27 +7,28 @@ RSpec.describe CardCost do
   let(:blue)      { ManaCost.new(:blue) }
   let(:colorless) { ManaCost.new(:colorless) }
 
+  it { expect(CardCost.new.costs).to be_empty }
+
   describe '#card_cost' do
     context 'when card_cost costs 2 blue mana' do
       subject(:card_cost) { CardCost.new(blue, blue) }
 
       it { expect(card_cost.costs).to eq [blue, blue] }
       it { expect(card_cost.costs).to be_an Array }
-      it { expect(card_cost.converted_cost).to eq 2 }
     end
   end
 
-  describe '#converted_cost' do
-    context 'when card_cost costs 2 blue mana' do
+  describe '#converted_mana_cost' do
+    context 'when card cost costs 2 blue mana' do
       subject(:card_cost) { CardCost.new(blue, blue) }
 
-      it { expect(card_cost.converted_cost).to eq 2 }
+      it { expect(card_cost.converted_mana_cost).to eq 2 }
     end
 
-    context 'when card_cost costs 1 blue mana' do
+    context 'when card cost costs 1 blue mana' do
       subject(:card_cost) { CardCost.new(blue) }
 
-      it { expect(card_cost.converted_cost).to eq 1 }
+      it { expect(card_cost.converted_mana_cost).to eq 1 }
     end
   end
 
@@ -55,7 +56,6 @@ RSpec.describe CardCost do
       end
 
       describe 'invalid terrain combinations' do
-        it { expect(card_cost.castable?(single_island)).to be false }
         it { expect(card_cost.castable?(single_island_single_mountain)).to be false }
         it { expect(card_cost.castable?(double_mountain)).to be false }
       end

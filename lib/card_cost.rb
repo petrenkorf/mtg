@@ -5,7 +5,7 @@ class CardCost
     @costs = costs
   end
 
-  def converted_cost
+  def converted_mana_cost
     @costs.size
   end
 
